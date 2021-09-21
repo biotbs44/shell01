@@ -1,0 +1,7 @@
+#!/bin/bash
+
+let "LINE = $FT_LINE2 - $FT_LINE1 + 1"
+
+cat /etc/passwd | sed -e 's/#.*//' -e 's/[ ^I]*$//' -e '/^$/ d' -e 's/:.*//g' | tr '\n' ',' \
+ | rev | tr "," "\n" | sort -r | tr "\n" "," | sed -e 's/, */, /g' -e 's/.$//' -e 's/.\{3\}$//' 
+
