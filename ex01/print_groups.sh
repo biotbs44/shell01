@@ -1,5 +1,2 @@
 #!/bin/bash
-
-groups $FT_USER | tr ' ' ',' | tr -d '\12' 
- 
-
+groups $FT_USER | tr ' ' ',' | tr -d '\n'

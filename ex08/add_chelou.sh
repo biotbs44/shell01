@@ -1,40 +1,7 @@
 #!/bin/bash
 
-FT_NBR1=${FT_NBR1//\'/"0"}
-FT_NBR1=${FT_NBR1//\\/"1"}
-FT_NBR1=${FT_NBR1//\"/"2"}
-FT_NBR1=${FT_NBR1//\?/"3"}
-FT_NBR1=${FT_NBR1//\!/"4"}
-
-FT_NBR2=${FT_NBR2//"m"/"0"}
-FT_NBR2=${FT_NBR2//"r"/"1"}
-FT_NBR2=${FT_NBR2//"d"/"2"}
-FT_NBR2=${FT_NBR2//"o"/"3"}
-FT_NBR2=${FT_NBR2//"c"/"4"}
-
-# NBR(5) --> TEN(10)
-TEN_FT_NBR1=`echo "ibase=5;$FT_NBR1" | bc`
-TEN_FT_NBR2=`echo "ibase=5;$FT_NBR2" | bc`
-
-
-# TEN_NBR1(5->10) + TEN_NBR2(5->10)
-SUM_TEN_FT_NBR=`echo $TEN_FT_NBR1+$TEN_FT_NBR2 | bc`
-
-# SUM(10) --> SUM(13)
-THI_SUM_TEN_FT_NBR=`echo "obase=13;$SUM_TEN_FT_NBR" | bc`
-
-# SUM(13) --> SUM(gta..mf)
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"0"/"g"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"1"/"t"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"2"/"a"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"3"/"i"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"4"/"o"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"5"/" "}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"6"/"l"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"7"/"u"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"8"/"S"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"9"/"n"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"A"/"e"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"B"/"m"}
-THI_SUM_TEN_FT_NBR=${THI_SUM_TEN_FT_NBR//"C"/"f"}
-echo $THI_SUM_TEN_FT_NBR
+echo $FT_NBR1 + $FT_NBR2 \
+| tr "'"'\\"?!mrdoc' '0123401234' \
+| xargs -I{} echo 'ibase=5;obase=23;' {} \
+| bc \
+| tr '0123456789ABC' 'gtaio luSnemf'

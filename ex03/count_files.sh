@@ -1,3 +1,2 @@
 #!/bin/bash
-
-find . | wc -l | tr -d ' ' | tr -d '\12'
+find . \( -type f -o -type d \) | wc -l | sed 's/^ *//'
